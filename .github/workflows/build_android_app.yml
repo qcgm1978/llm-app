@@ -3,7 +3,7 @@ name: Android build
 on:
   push:
     branches:
-      - web_android
+      - main
 
 permissions:
   contents: write

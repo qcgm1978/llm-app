@@ -2,7 +2,7 @@ name: Deploy GitHub Pages
 
 on:
   push:
-    branches: [ web_android ]  # 添加web_android分支
+    branches: [ main ]  # 添加web_android分支
 
 # 设置部署权限
 permissions:
