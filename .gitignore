@@ -10,6 +10,13 @@ dist-electron/
 *.flac
 *.aac
 *.m4a
+*.mp4
+*.mov
+*.avi
+*.zip
+*.rar
+*.7z
+*.jar
 
 # 忽略日志和临时文件
 logs
@@ -28,6 +35,12 @@ android/app/build/
 android/build/
 public/release/
 android/app/src/main/assets/public/*
+ios/App/App/public/*
+*.dex
+*.apk.jar
+intermediates/
+compressed_assets/
+
 
 # Android 密钥库和密码文件
 android/app/keystore.properties
