@@ -1,0 +1,68 @@
+# 忽略 node_modules 和构建输出
+node_modules/
+dist/
+dist-electron/
+
+# 忽略日志和临时文件
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 忽略脚手架工具目录
+orphan_scaffolding/
+
+# Android 构建相关临时文件
+android/app/build/
+android/build/
+public/release/*
+
+# Android 密钥库和密码文件
+android/app/keystore.properties
+android/app/keystore.properties.bak
+android/app/keystore.properties.bkp_*
+android/keystore/
+android/local.properties
+android/gradle.properties
+build_with_java11.sh
+ANDROID_SIGNING_SOLUTION.md
+
+# 包含密码的shell脚本
+fix_ascii_password.sh
+regenerate_keystore.sh
+convert_keystore_to_pkcs12.sh
+generate_new_keystore.sh
+
+# Android 备份目录
+android/app/backups/
+
+# 构建转换文件和DEX文件
+**/build/.transforms/**
+**/*.dex
+    
+# 其他忽略项
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+!public/release/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vercel
+ios/
+.cache
+public/Yang.json
