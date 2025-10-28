@@ -7,16 +7,6 @@ export const SOURCE_IMAGE_PATH = "/buddha.jpg";
 export const appIcons = {
   // Android 图标配置
   android: {
-    // 不同尺寸的图标路径 (会通过生成脚本自动生成)
-    // icon_36x36: "/assets/android/icon_36x36.png",
-    // icon_48x48: "/assets/android/icon_48x48.png",
-    // icon_72x72: "/assets/android/icon_72x72.png",
-    // icon_96x96: "/assets/android/icon_96x96.png",
-    // icon_144x144: "/assets/android/icon_144x144.png",
-    // icon_192x192: "/assets/android/icon_192x192.png",
-    // icon_216x216: "/assets/android/icon_216x216.png",
-    // icon_512x512: SOURCE_IMAGE_PATH,
-    // 默认图标路径
     default: SOURCE_IMAGE_PATH
   },
   // Web 应用图标
