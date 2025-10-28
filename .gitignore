@@ -3,6 +3,14 @@ node_modules/
 dist/
 dist-electron/
 
+# 忽略大型媒体文件
+*.mp3
+*.wav
+*.ogg
+*.flac
+*.aac
+*.m4a
+
 # 忽略日志和临时文件
 logs
 *.log
@@ -18,7 +26,8 @@ orphan_scaffolding/
 # Android 构建相关临时文件
 android/app/build/
 android/build/
-public/release/*
+public/release/
+android/app/src/main/assets/public/*
 
 # Android 密钥库和密码文件
 android/app/keystore.properties
@@ -50,7 +59,9 @@ android/app/backups/
 .env.test.local
 .env.production.local
 
+# 保留public/release目录下的特定文件，但忽略子目录和大文件
 !public/release/
+public/release/app-*.apk
 
 # Editor directories and files
 .vscode/*
