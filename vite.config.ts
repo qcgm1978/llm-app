@@ -9,7 +9,7 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
 
 // 直接从package.json获取应用名称配置
 const appConfig = {
-  zh: packageJson.displayName || '启示路',
+  zh: packageJson.displayName || '',
   en: packageJson.name.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') || 'Revelation'
 }
 
@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       // 定义构建时可用的全局变量
-      'VITE_APP_NAME_ZH': JSON.stringify(appConfig.zh || '启示路'),
+      'VITE_APP_NAME_ZH': JSON.stringify(appConfig.zh || ''),
       'VITE_APP_NAME_EN': JSON.stringify(appConfig.en || 'Revelation')
     }
   }

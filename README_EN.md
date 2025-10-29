@@ -1,8 +1,8 @@
-# Revelation Road
+# App by config
 
 ## Project Introduction
 
-Revelation Road is a React-based cross-platform application that provides a categorized content browsing experience. Users can browse terms (with infinite depth) by subject classification or book page classification and obtain relevant explanations. The application supports Chinese-English switching, background music, and other features. "Revelation Road" is a science fiction romance novel by singer G.E.M. (邓紫棋), which tells the story of a mysterious world called "Revelation Road" containing many hidden knowledge and secrets. The terms in the directory are concepts mentioned or implied in the book, including science, theology, psychology, programming, philosophy, music, literature, etc. The content is constantly being improved; if you have any ideas, you can submit an Issue.
+A React-based cross-platform application that provides a categorized content browsing experience. Users can browse terms (with infinite depth) by subject classification or book page classification and obtain relevant explanations. The application supports Chinese-English switching, background music, and other features. The content is constantly being improved; if you have any ideas, you can submit an Issue.
 
 ### Infinite Depth
 

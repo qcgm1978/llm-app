@@ -112,7 +112,7 @@ def fetch_fanqie_novel_data():
 
 if __name__ == "__main__":
     # novel_data = fetch_fanqie_novel_data()
-    name = "buddha"
+    name = "data"
     address = f"/Users/dickphilipp/Documents/revelation/public/{name}"
     get_revelation_json(address)
     # convert_notes_to_json()
