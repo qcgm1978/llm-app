@@ -211,15 +211,31 @@ async function generateImages() {
     return;
   }
 
-  // 处理输出目录路径 - 直接输出到assets/android目录
-  const outputDir = path.resolve(process.cwd(), 'assets', 'android');
-  console.log(`设置输出目录为: ${outputDir}`);
+  // 处理输出目录路径 - 直接输出到Android的mipmap资源目录
+  const androidResDir = path.resolve(process.cwd(), 'android', 'app', 'src', 'main', 'res');
+  console.log(`Android资源目录: ${androidResDir}`);
   
-  // 确保输出目录存在
-  if (!fs.existsSync(outputDir)) {
-    console.log(`创建输出目录: ${outputDir}`);
-    fs.mkdirSync(outputDir, { recursive: true });
-  }
+  // 定义Android mipmap目录映射关系
+  const mipmapDirs = {
+    '36x36': 'mipmap-ldpi',
+    '48x48': 'mipmap-mdpi',
+    '72x72': 'mipmap-hdpi',
+    '96x96': 'mipmap-xhdpi',
+    '144x144': 'mipmap-xhdpi',
+    '180x180': 'mipmap-xxhdpi',
+    '192x192': 'mipmap-xxhdpi',
+    '216x216': 'mipmap-xxhdpi',
+    '512x512': 'mipmap-xxxhdpi'
+  };
+  
+  // 确保所有需要的mipmap目录存在
+  Object.values(mipmapDirs).forEach(dir => {
+    const fullPath = path.join(androidResDir, dir);
+    if (!fs.existsSync(fullPath)) {
+      console.log(`创建目录: ${fullPath}`);
+      fs.mkdirSync(fullPath, { recursive: true });
+    }
+  });
 
   // 查找源图片 - 重点处理public目录下的图片
   const sourceImagePath = config.sourceImage.path;
@@ -299,9 +315,19 @@ async function generateImages() {
           continue;
         }
         
-        // 生成输出文件名
-        const fileName = size.name || `icon_${size.suffix || `${size.width}x${size.height}`}`;
-        const outputPath = path.join(outputDir, `${fileName}.${config.generation.format || 'png'}`);
+        // 根据尺寸确定目标mipmap目录
+        const sizeKey = `${size.width}x${size.height}`;
+        const targetDir = mipmapDirs[sizeKey] || 'mipmap-mdpi';
+        const fullDirPath = path.join(androidResDir, targetDir);
+        
+        // 生成输出文件名 - 使用Android标准命名
+        const fileName = 'ic_launcher';
+        const outputPath = path.join(fullDirPath, `${fileName}.${config.generation.format || 'png'}`);
+        console.log(`将生成方形图标到: ${outputPath}`);
+        
+        // 同时生成圆形图标
+        const roundOutputPath = path.join(fullDirPath, `${fileName}_round.${config.generation.format || 'png'}`);
+        console.log(`将生成圆形图标到: ${roundOutputPath}`);
         
         // 设置输出选项
         const outputOptions = {};
@@ -322,17 +348,30 @@ async function generateImages() {
         }
         
         // 处理图片并输出
-        const processedImage = await sharp(sourceImageFile).resize(resizeOptions);
+        // 对于方形图标，直接调整大小
+        const squareImage = await sharp(sourceImageFile).resize(resizeOptions);
+        
+        // 对于圆形图标，使用相同的尺寸但添加圆形裁剪
+        const circleImage = await sharp(sourceImageFile)
+          .resize(resizeOptions)
+          .composite([{
+            input: Buffer.from(`<svg><circle cx="${size.width/2}" cy="${size.height/2}" r="${Math.min(size.width, size.height)/2}"/></svg>`),
+            blend: 'dest-in',
+            cutout: true
+          }]);
         
         // 根据格式输出图片
         const format = (config.generation.format || 'png').toLowerCase();
         if (format === 'png') {
-          await processedImage.png(outputOptions).toFile(outputPath);
+          await squareImage.png(outputOptions).toFile(outputPath);
+          await circleImage.png(outputOptions).toFile(roundOutputPath);
         } else if (['jpg', 'jpeg'].includes(format)) {
-          await processedImage.jpeg(outputOptions).toFile(outputPath);
+          await squareImage.jpeg(outputOptions).toFile(outputPath);
+          await circleImage.jpeg(outputOptions).toFile(roundOutputPath);
         } else {
           // 默认使用png格式
-          await processedImage.png(outputOptions).toFile(outputPath);
+          await squareImage.png(outputOptions).toFile(outputPath);
+          await circleImage.png(outputOptions).toFile(roundOutputPath);
         }
         
         console.log(`✓ 生成图片: ${fileName}`);

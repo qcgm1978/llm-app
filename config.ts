@@ -1,7 +1,11 @@
 // 应用程序配置文件
-
+// 应用程序名称配置
+export const appNames = {
+  zh: "这个男人来自地球",
+  en: "This Man Comes from Earth",
+};
 // 单一源图片配置 - 只需要修改这一个路径即可
-export const SOURCE_IMAGE_PATH = "/buddha.jpg";
+export const SOURCE_IMAGE_PATH = "/cover.jpeg";
 
 // 图标配置 - 基于单一源图片自动引用
 export const appIcons = {
@@ -11,8 +15,8 @@ export const appIcons = {
   },
   // Web 应用图标
   web: {
-    favicon: "/assets/android/icon_36x36.png",
-    appleTouchIcon: "/assets/android/icon_180x180.png"
+    favicon: SOURCE_IMAGE_PATH,
+    appleTouchIcon: SOURCE_IMAGE_PATH
   }
 };
 
@@ -25,7 +29,7 @@ export const appImages = {
     // 方形logo
     square: SOURCE_IMAGE_PATH,
     // 小尺寸logo
-    small: "/assets/android/icon_192x192.png"
+    small: SOURCE_IMAGE_PATH
   },
   // 二维码图片
   qrcode: "/assets/qrcode.jpeg",
@@ -41,7 +45,7 @@ export const appImages = {
     // 默认封面图
     defaultCover: SOURCE_IMAGE_PATH,
     // 默认缩略图
-    defaultThumbnail: "/assets/android/icon_192x192.png"
+    defaultThumbnail: SOURCE_IMAGE_PATH
   }
 };
 
@@ -60,8 +64,9 @@ export const imageGenerationConfig = {
     enabled: true,
     // 生成的图片格式
     format: "png",
-    // 输出目录
-    outputDir: "/assets/android",
+    // 输出目录 - 现在直接输出到Android mipmap目录，此配置在脚本中已被覆盖
+    outputDir: "/android/app/src/main/res",
+    // 说明：脚本将根据不同尺寸自动输出到对应的mipmap目录（ldpi/mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi）
     // 需要生成的尺寸列表 (像素)
     sizes: [
       { width: 36, height: 36, suffix: "36x36" },
@@ -85,11 +90,7 @@ export const imageGenerationConfig = {
   }
 };
 
-// 应用程序名称配置
-export const appNames = {
-  zh: "钱文忠说佛——开解人生困惑的觉悟指南",
-  en: "Money Talks Buddhism - Awakening to Understanding",
-};
+
 
 // 版本信息配置
 export const versionInfo = {
@@ -116,7 +117,6 @@ export type ChapterPageData = ChapterPageItem[];
 // 初始化chapterPage为一个空数组
 let chapterPage: ChapterPageData = [];
 
-// 在浏览器环境中，尝试异步加载chapterPage.json
 if (typeof window !== "undefined" && window.fetch) {
   // 异步加载函数（不会阻塞模块导出）
   const loadChapterPageData = async () => {
@@ -171,7 +171,7 @@ export const timelineConfig = {
         zh: '佛',
         en: 'Buddha'
       },
-      jsonPath: "buddha_timeline.json",
+      jsonPath: "timeline.json",
       audioUrl: '王菲 - 金刚经_爱给网_aigei_com.mp3',
     },
     // novel: {
@@ -201,7 +201,7 @@ export const timelineConfig = {
 
 export const config = {
   // 数据文件路径
-  dataFilePath: "buddha_data.json",
+  dataFilePath: "data.json",
   // 章节页面配置 - 指向JSON文件
   chapterPage,
   // 时间线配置
