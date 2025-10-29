@@ -3,30 +3,19 @@ import react from '@vitejs/plugin-react'
 import fs from 'fs'
 import path from 'path'
 
-// 读取config.ts文件获取应用名称配置
-let appConfig = { zh: '钱文忠说佛——开解人生困惑的觉悟指南', en: 'Money Talks Buddhism - Awakening to Understanding' }
-try {
-  const configPath = path.resolve(__dirname, 'config.ts')
-  const configContent = fs.readFileSync(configPath, 'utf-8')
-  
-  // 提取appNames配置
-  const appNamesMatch = configContent.match(/export const appNames = (\{[^\}]+\})/)
-  if (appNamesMatch && appNamesMatch[1]) {
-    // 安全地执行配置解析
-    const appNamesStr = appNamesMatch[1].replace(/'/g, '"')
-    try {
-      appConfig = JSON.parse(appNamesStr)
-    } catch (jsonError) {
-      console.warn('Failed to parse appNames from config.ts, using default values')
-    }
-  }
-} catch (error) {
-  console.warn('Failed to read config.ts, using default app names')
+// 读取package.json获取应用名称配置
+const packageJsonPath = path.resolve(process.cwd(), 'package.json')
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+
+// 直接从package.json获取应用名称配置
+const appConfig = {
+  zh: packageJson.displayName || '启示路',
+  en: packageJson.name.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') || 'Revelation'
 }
 
 // 设置环境变量，这样Vite的HTML插件可以正确替换HTML文件中的变量
-process.env.VITE_APP_NAME_ZH = appConfig.zh || '启示路'
-process.env.VITE_APP_NAME_EN = appConfig.en || 'Revelation'
+process.env.VITE_APP_NAME_ZH = appConfig.zh
+process.env.VITE_APP_NAME_EN = appConfig.en
 
 export default defineConfig(({ mode }) => {
   // 加载环境变量

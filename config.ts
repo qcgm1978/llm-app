@@ -1,8 +1,15 @@
 // 应用程序配置文件
-// 应用程序名称配置
+import fs from 'fs';
+import path from 'path';
+
+// 读取package.json获取应用名称配置
+const packageJsonPath = path.resolve(process.cwd(), 'package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+
+// 应用程序名称配置 - 从package.json导入
 export const appNames = {
-  zh: "这个男人来自地球",
-  en: "This Man Comes from Earth",
+  zh: packageJson.displayName,
+  en: packageJson.name.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
 };
 // 单一源图片配置 - 只需要修改这一个路径即可
 export const SOURCE_IMAGE_PATH = "/cover.jpeg";
