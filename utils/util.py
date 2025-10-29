@@ -112,9 +112,7 @@ def fetch_fanqie_novel_data():
 
 if __name__ == "__main__":
     # novel_data = fetch_fanqie_novel_data()
-    name = "data"
-    address = f"/Users/dickphilipp/Documents/revelation/public/{name}"
-    get_revelation_json(address)
+    get_revelation_json()
     # convert_notes_to_json()
     # 获取番茄小说数据
     breakpoint()

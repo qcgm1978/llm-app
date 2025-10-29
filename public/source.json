@@ -1,0 +1,47 @@
+{
+  "佛陀理论": [
+    {"term": "四圣谛", "term_en": "Four Noble Truths", "description": "佛教的基本教义，包括苦谛、集谛、灭谛和道谛"},
+    {"term": "八正道", "term_en": "Noble Eightfold Path", "description": "通往涅槃的八种正确生活方式，包括正见、正思维、正语、正业、正命、正精进、正念和正定"},
+    {"term": "无常", "term_en": "Anicca", "description": "万物变化无常，没有永恒不变的事物"},
+    {"term": "苦", "term_en": "Dukkha", "description": "人生充满痛苦和不满"},
+    {"term": "无我", "term_en": "Anatta", "description": "没有永恒不变的自我或灵魂"},
+    {"term": "业", "term_en": "Karma", "description": "因果报应，行为决定命运"},
+    {"term": "涅槃", "term_en": "Nirvana", "description": "超越生死轮回，摆脱痛苦的终极境界"},
+    {"term": "中道", "term_en": "Middle Way", "description": "避免极端，走中庸之道"}
+  ],
+  "苏格拉底理论": [
+    {"term": "认识你自己", "term_en": "Know Thyself", "description": "德尔斐神庙的箴言，苏格拉底哲学的核心"},
+    {"term": "美德即知识", "term_en": "Virtue is Knowledge", "description": "认为道德美德基于理性知识"},
+    {"term": "苏格拉底式对话", "term_en": "Socratic Dialogue", "description": "通过提问和回答来探索真理的方法"},
+    {"term": "无知之知", "term_en": "Knowledge of Ignorance", "description": "知道自己无知是真正智慧的开始"},
+    {"term": "辩证法", "term_en": "Dialectic", "description": "通过对话和辩论寻求真理的方法"},
+    {"term": "归纳定义", "term_en": "Inductive Definition", "description": "从具体例子归纳出普遍定义的方法"}
+  ],
+  "孔子理论": [
+    {"term": "仁", "term_en": "Ren", "description": "孔子思想的核心，指仁爱、善良和人道主义"},
+    {"term": "礼", "term_en": "Li", "description": "社会规范、礼仪和道德准则"},
+    {"term": "义", "term_en": "Yi", "description": "正义、道义和适当的行为"},
+    {"term": "智", "term_en": "Zhi", "description": "智慧、知识和理解力"},
+    {"term": "信", "term_en": "Xin", "description": "诚信、诚实和可靠性"},
+    {"term": "恕", "term_en": "Shu", "description": "恕道，己所不欲勿施于人"},
+    {"term": "中庸", "term_en": "Zhong Yong", "description": "中庸之道，避免极端"},
+    {"term": "君君臣臣父父子子", "term_en": "Ruler-Ruled, Father-Son Relationships", "description": "强调社会等级和各自的责任"}
+  ],
+  "耶稣理论": [
+    {"term": "爱你的邻人", "term_en": "Love Your Neighbor", "description": "基督教的核心教导，要像爱自己一样爱他人"},
+    {"term": "天国近了", "term_en": "The Kingdom of Heaven is Near", "description": "耶稣传道的中心主题"},
+    {"term": "十诫", "term_en": "Ten Commandments", "description": "上帝通过摩西赐下的十条道德诫命"},
+    {"term": "黄金法则", "term_en": "Golden Rule", "description": "你们愿意人怎样待你们，你们也要怎样待人"},
+    {"term": "信心与救赎", "term_en": "Faith and Salvation", "description": "通过信仰获得拯救的教义"},
+    {"term": "博爱", "term_en": "Universal Love", "description": "对所有人无条件的爱"},
+    {"term": "悔改", "term_en": "Repentance", "description": "承认错误并改变行为"},
+    {"term": "饶恕", "term_en": "Forgiveness", "description": "宽赦他人的过错"}
+  ],
+  "共同理念": [
+    {"term": "道德伦理", "term_en": "Ethics and Morality", "description": "四位思想家都强调道德行为的重要性"},
+    {"term": "自我完善", "term_en": "Self-Improvement", "description": "通过修行和学习提升自身"},
+    {"term": "和谐共处", "term_en": "Harmonious Coexistence", "description": "建立和谐的人际关系和社会秩序"},
+    {"term": "智慧追求", "term_en": "Pursuit of Wisdom", "description": "对真理和智慧的不懈追求"},
+    {"term": "慈悲与善良", "term_en": "Compassion and Kindness", "description": "对他人的关爱和同情"}
+  ]
+}

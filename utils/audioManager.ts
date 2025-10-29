@@ -512,9 +512,10 @@ const audioManager = {
     url?: string,
     trackInfo?: { name: string; artist: string }
   ) => {
-    if (url) {
-      audioManager.toggleAudio(trackInfo)
-    }
+    // 移除自动播放功能，只在明确需要播放时才播放
+    // if (url) {
+    //   audioManager.toggleAudio(trackInfo)
+    // }
   }
 }
 

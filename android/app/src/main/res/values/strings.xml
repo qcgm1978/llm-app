@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">这个男人来自地球</string>
-    <string name="title_activity_main">这个男人来自地球</string>
-    <string name="package_name">com.this.man.comes.from.earth</string>
-    <string name="custom_url_scheme">com.this.man.comes.from.earth</string>
+    <string name="app_name">佛陀、苏格拉底、孔子、耶稣</string>
+    <string name="title_activity_main">佛陀、苏格拉底、孔子、耶稣</string>
+    <string name="package_name">com.buddha.socrates.confucius.jesus</string>
+    <string name="custom_url_scheme">com.buddha.socrates.confucius.jesus</string>
     <string name="privacy_policy_url">file:///android_asset/public/privacy.html</string>
 </resources>

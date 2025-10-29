@@ -1,15 +1,9 @@
 // 应用程序配置文件
-import fs from 'fs';
-import path from 'path';
 
-// 读取package.json获取应用名称配置
-const packageJsonPath = path.resolve(process.cwd(), 'package.json');
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-
-// 应用程序名称配置 - 从package.json导入
+// 应用程序名称配置 - 直接定义（从package.json复制的配置）
 export const appNames = {
-  zh: packageJson.displayName,
-  en: packageJson.name.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+  zh: '佛陀、苏格拉底、孔子、耶稣',
+  en: 'buddha-socrates-confucius-jesus',
 };
 // 单一源图片配置 - 只需要修改这一个路径即可
 export const SOURCE_IMAGE_PATH = "/cover.jpeg";
@@ -174,12 +168,9 @@ export const timelineConfig = {
   // 时间线数据源配置
   sources: {
     json: {
-      name: {
-        zh: '佛',
-        en: 'Buddha'
-      },
+      name: appNames,
       jsonPath: "timeline.json",
-      audioUrl: '王菲 - 金刚经_爱给网_aigei_com.mp3',
+      audioUrl: 'bg.mp3',
     },
     // novel: {
     //   name: {
