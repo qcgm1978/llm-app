@@ -5,9 +5,11 @@ export const appNames = {
   zh: '佛陀、苏格拉底、孔子、耶稣',
   en: 'buddha-socrates-confucius-jesus',
 };
-// 单一源图片配置 - 只需要修改这一个路径即可
+const music_config = {
+  audio_name: 'Amazing Grace',
+  artists: [{ name: '邓紫棋' }],
+}
 export const SOURCE_IMAGE_PATH = "/cover.jpeg";
-
 // 图标配置 - 基于单一源图片自动引用
 export const appIcons = {
   // Android 图标配置
@@ -171,8 +173,7 @@ export const timelineConfig = {
       name: appNames,
       jsonPath: "timeline.json",
       audioUrl: 'bg.mp3',
-      audio_name: 'Amazing Grace',
-      artists: [{ name: '邓紫棋' }],
+      ...music_config
     },
     // novel: {
     //   name: {
