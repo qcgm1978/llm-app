@@ -266,7 +266,7 @@ export const SubjectTabs = ({
 
 
 const toggleAudio = (trackInfo) => {
-  audioManager.toggleAudio(trackInfo)
+  audioManager.toggleAudio(trackInfo, false, false)
 }
 export const AudioControl = () => {
 
@@ -362,9 +362,9 @@ export const DirectoryItemsRenderer = ({
                   onClick={() => {
                     onItemClick(language === 'en' && item.term_en ? item.term_en : item.term, item.pages, selectedSubject)
                     
-                    // if (item.track?.preview_url) {
-                    //   toggleAudio(item.track)
-                    // }
+                    if (item.track?.preview_url) {
+                      toggleAudio(item.track)
+                    }
                   }}
                   style={{
                     background:

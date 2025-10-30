@@ -171,6 +171,8 @@ export const timelineConfig = {
       name: appNames,
       jsonPath: "timeline.json",
       audioUrl: 'bg.mp3',
+      audio_name: 'Amazing Grace',
+      artists: [{ name: '邓紫棋' }],
     },
     // novel: {
     //   name: {

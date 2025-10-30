@@ -320,14 +320,16 @@ async function generateImages() {
         const targetDir = mipmapDirs[sizeKey] || 'mipmap-mdpi';
         const fullDirPath = path.join(androidResDir, targetDir);
         
-        // 生成输出文件名 - 使用Android标准命名
-        const fileName = 'ic_launcher';
-        const outputPath = path.join(fullDirPath, `${fileName}.${config.generation.format || 'png'}`);
-        console.log(`将生成方形图标到: ${outputPath}`);
+        // 生成输出文件名 - 使用Android自适应图标标准命名
+        // 生成前景图标(Android实际使用的)
+        const foregroundFileName = 'ic_launcher_foreground';
+        const foregroundOutputPath = path.join(fullDirPath, `${foregroundFileName}.${config.generation.format || 'png'}`);
+        console.log(`将生成前景图标到: ${foregroundOutputPath}`);
         
-        // 同时生成圆形图标
-        const roundOutputPath = path.join(fullDirPath, `${fileName}_round.${config.generation.format || 'png'}`);
-        console.log(`将生成圆形图标到: ${roundOutputPath}`);
+        // 同时也生成兼容的标准图标(备用)
+        const standardFileName = 'ic_launcher';
+        const standardOutputPath = path.join(fullDirPath, `${standardFileName}.${config.generation.format || 'png'}`);
+        const roundOutputPath = path.join(fullDirPath, `${standardFileName}_round.${config.generation.format || 'png'}`);
         
         // 设置输出选项
         const outputOptions = {};
@@ -363,18 +365,27 @@ async function generateImages() {
         // 根据格式输出图片
         const format = (config.generation.format || 'png').toLowerCase();
         if (format === 'png') {
-          await squareImage.png(outputOptions).toFile(outputPath);
+          // 输出前景图标(主要的)
+          await squareImage.png(outputOptions).toFile(foregroundOutputPath);
+          // 同时输出标准图标(备用)
+          await squareImage.png(outputOptions).toFile(standardOutputPath);
           await circleImage.png(outputOptions).toFile(roundOutputPath);
         } else if (['jpg', 'jpeg'].includes(format)) {
-          await squareImage.jpeg(outputOptions).toFile(outputPath);
+          // 输出前景图标(主要的)
+          await squareImage.jpeg(outputOptions).toFile(foregroundOutputPath);
+          // 同时输出标准图标(备用)
+          await squareImage.jpeg(outputOptions).toFile(standardOutputPath);
           await circleImage.jpeg(outputOptions).toFile(roundOutputPath);
         } else {
           // 默认使用png格式
-          await squareImage.png(outputOptions).toFile(outputPath);
+          // 输出前景图标(主要的)
+          await squareImage.png(outputOptions).toFile(foregroundOutputPath);
+          // 同时输出标准图标(备用)
+          await squareImage.png(outputOptions).toFile(standardOutputPath);
           await circleImage.png(outputOptions).toFile(roundOutputPath);
         }
         
-        console.log(`✓ 生成图片: ${fileName}`);
+        console.log(`✓ 生成图片: ${foregroundFileName} (主要) 和 ${standardFileName} (备用)`);
         successCount++;
         
       } catch (err) {

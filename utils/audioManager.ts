@@ -8,8 +8,8 @@ let isPlaying = false
 let isPreparing = false
 let availableTracks = []
 let currentTrackInfo = {
-  name: '金刚经',
-  artists: [{ name: '王菲' }],
+  name: timelineConfig.sources.json.audio_name,
+  artists: timelineConfig.sources.json.artists,
   preview_url: `/${timelineConfig.sources.json.audioUrl}`
 }
 let currentLanguage: 'zh' | 'en' = 'zh'
@@ -443,7 +443,7 @@ const audioManager = {
     availableTracks = tracks
   },
 
-  toggleAudio: (trackInfo, isLoop = false) => {
+  toggleAudio: (trackInfo, isLoop = false,enable_play=true) => {
    
     if (isPreparing) return
 
@@ -464,20 +464,21 @@ const audioManager = {
         currentAudio.loop = false
       }
       currentTrackInfo = trackInfo
-      currentAudio
+      audioManager.updatePlayerUI()
+      if(enable_play){
+        currentAudio
         .play()
         .then(() => {
           isPlaying = true
-          audioManager.updatePlayerUI()
         })
         .catch(error => {
           console.error('Failed to play audio:', error)
           currentAudio = null
-          audioManager.updatePlayerUI()
         })
         .finally(() => {
           isPreparing = false
         })
+      }
     } else if (trackInfo) {
      
       if (isPlaying) {
@@ -512,10 +513,9 @@ const audioManager = {
     url?: string,
     trackInfo?: { name: string; artist: string }
   ) => {
-    // 移除自动播放功能，只在明确需要播放时才播放
-    // if (url) {
-    //   audioManager.toggleAudio(trackInfo)
-    // }
+    if (url) {
+      audioManager.toggleAudio(trackInfo, false, false)
+    }
   }
 }
 
