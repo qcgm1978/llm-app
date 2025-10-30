@@ -1,15 +1,53 @@
 // 应用程序配置文件
 
-// 应用程序名称配置 - 直接定义（从package.json复制的配置）
-export const appNames = {
-  zh: '佛陀、苏格拉底、孔子、耶稣',
-  en: 'buddha-socrates-confucius-jesus',
+// 应用程序配置数组 - 支持多主题选择
+export const appConfigs = [
+  {
+    id: 'buddha',
+    names: {
+      zh: '佛陀、苏格拉底、孔子、耶稣',
+      en: 'buddha-socrates-confucius-jesus',
+    },
+    music: {
+      audio_name: 'Amazing Grace',
+      artists: [{ name: '邓紫棋' }],
+    },
+    sourceImage: '/cover.jpeg'
+  },
+  {
+    id: 'man-from-earth',
+    names: {
+      zh: '这个男人来自地球',
+      en: 'the-man-from-earth',
+    },
+    music: {
+      audio_name: 'Goldberg Variations',
+      artists: [{ name: 'Johann Sebastian Bach' }],
+    },
+    sourceImage: '/cover.jpeg',
+    data: 'public/THE.MAN.FROM.EARTH_data.json',
+    timeline: 'public/THE.MAN.FROM.EARTH_timeline.json',
+  }
+];
+
+// 默认配置索引
+export const DEFAULT_CONFIG_INDEX = 0;
+
+// 导出当前配置（可通过应用内选择切换）
+export const getCurrentConfig = () => {
+  const savedIndex = localStorage.getItem('selectedConfigIndex');
+  const index = savedIndex ? parseInt(savedIndex) : DEFAULT_CONFIG_INDEX;
+  return appConfigs[index] || appConfigs[DEFAULT_CONFIG_INDEX];
 };
-const music_config = {
-  audio_name: 'Amazing Grace',
-  artists: [{ name: '邓紫棋' }],
-}
-export const SOURCE_IMAGE_PATH = "/cover.jpeg";
+
+// 获取当前应用名称
+export const appNames = getCurrentConfig().names;
+
+// 获取当前音乐配置
+export const music_config = getCurrentConfig().music;
+
+// 获取当前源图片路径
+export const SOURCE_IMAGE_PATH = getCurrentConfig().sourceImage;
 // 图标配置 - 基于单一源图片自动引用
 export const appIcons = {
   // Android 图标配置
@@ -124,7 +162,6 @@ if (typeof window !== "undefined" && window.fetch) {
   // 异步加载函数（不会阻塞模块导出）
   const loadChapterPageData = async () => {
     try {
-      // 首先尝试加载本地JSON文件
       const localUrl = "/chapterPage.json";
       const localResponse = await fetch(localUrl);
       if (!localResponse.ok) {
@@ -171,7 +208,7 @@ export const timelineConfig = {
   sources: {
     json: {
       name: appNames,
-      jsonPath: "timeline.json",
+      jsonPath: getCurrentConfig().timeline || "timeline.json",
       audioUrl: 'bg.mp3',
       ...music_config
     },
@@ -202,7 +239,7 @@ export const timelineConfig = {
 
 export const config = {
   // 数据文件路径
-  dataFilePath: "data.json",
+  dataFilePath: getCurrentConfig().data || "data.json",
   // 章节页面配置 - 指向JSON文件
   chapterPage,
   // 时间线配置

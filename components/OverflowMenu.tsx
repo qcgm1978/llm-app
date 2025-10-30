@@ -1,8 +1,11 @@
 // @ts-nocheck
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 
 // 首先在文件顶部添加Capacitor的导入
 import { Capacitor } from '@capacitor/core';
+
+// 导入应用配置
+import { appConfigs, DEFAULT_CONFIG_INDEX } from '../config';
 
 interface HeaderProps {
   language: "zh" | "en";
@@ -42,6 +45,24 @@ const Header = ({
   switchToDefaultBook,
   switchToUploadedBook,
 }) => {
+  const [selectedConfigIndex, setSelectedConfigIndex] = useState(DEFAULT_CONFIG_INDEX);
+  
+  // 加载保存的配置
+  useEffect(() => {
+    const savedIndex = localStorage.getItem('selectedConfigIndex');
+    if (savedIndex !== null) {
+      setSelectedConfigIndex(parseInt(savedIndex));
+    }
+  }, []);
+  
+  // 处理配置切换
+  const handleConfigChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const newIndex = parseInt(e.target.value);
+    setSelectedConfigIndex(newIndex);
+    localStorage.setItem('selectedConfigIndex', newIndex.toString());
+    // 刷新页面以应用新配置
+    window.location.reload();
+  };
   return (
     <header>
       <div id="menu-wrapper">
@@ -82,6 +103,44 @@ const Header = ({
               }}
               onClick={(e) => e.stopPropagation()}
             >
+              {/* 添加配置选择功能 */}
+              <div style={{ marginBottom: "0.5rem", width: "100%" }}>
+                <div
+                  style={{
+                    background: "#34495e",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "0.5rem 1rem",
+                    fontSize: "0.9rem",
+                    fontWeight: "500",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  {language === "zh" ? "内容选择" : "Content Selection"}
+                </div>
+                <select
+                  value={selectedConfigIndex}
+                  onChange={handleConfigChange}
+                  style={{
+                    width: "100%",
+                    padding: "0.5rem 1rem",
+                    border: "2px solid #e1e8ed",
+                    borderRadius: "8px",
+                    fontSize: "0.9rem",
+                    backgroundColor: "#f8f9fa",
+                    cursor: "pointer",
+                    marginBottom: "0.5rem"
+                  }}
+                >
+                  {appConfigs.map((config, index) => (
+                    <option key={config.id} value={index}>
+                      {language === 'zh' ? config.names.zh : config.names.en}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
               {/* 添加语言选择功能 */}
               <div style={{ marginBottom: "0.5rem", width: "100%" }}>
                 <div
