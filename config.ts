@@ -25,8 +25,8 @@ export const appConfigs = [
       artists: [{ name: 'Johann Sebastian Bach' }],
     },
     sourceImage: '/cover.jpeg',
-    data: 'public/THE.MAN.FROM.EARTH_data.json',
-    timeline: 'public/THE.MAN.FROM.EARTH_timeline.json',
+    data: 'THE.MAN.FROM.EARTH_data.json',
+    timeline: 'THE.MAN.FROM.EARTH_timeline.json',
   }
 ];
 

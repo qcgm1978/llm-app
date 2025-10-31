@@ -4,7 +4,7 @@ let cachedData: any = null;
 let dataLoadingPromise: Promise<any> | null = null;
 
 
-export const loadData = async (): Promise<any> => {
+export const loadData = async (): Promise<any> => { 
  
   if (cachedData) {
     return cachedData;
@@ -19,7 +19,8 @@ export const loadData = async (): Promise<any> => {
 
 dataLoadingPromise = new Promise(async (resolve, reject) => {
     try {
-      const url = `${import.meta.env.BASE_URL || ''}${config.dataFilePath}`;
+      // 在Capacitor环境中正确加载本地资源
+      const url = config.dataFilePath.startsWith('/') ? config.dataFilePath : `/${config.dataFilePath}`;
       const response = await fetch(url, { cache: 'no-cache' });
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
@@ -29,8 +30,7 @@ dataLoadingPromise = new Promise(async (resolve, reject) => {
       resolve(data);
     } catch (error) {
       reject(error);
-    } finally {
-     
+    } finally {     
       setTimeout(() => {
         dataLoadingPromise = null;
       }, 0);

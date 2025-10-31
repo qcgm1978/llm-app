@@ -30,21 +30,18 @@ const importTimelineData = async (): Promise<boolean> => {
 // 从JSON文件获取timeline数据
 const fetchTimelineData = async (jsonPath: string): Promise<any[] | null> => {
   try {
-    // 尝试直接路径（适合开发环境）
-    let response = await fetch(jsonPath);
+    // 构建正确的URL路径，适应Capacitor环境
+    // 如果路径已经以/开头，直接使用；否则添加/前缀
+    const url = jsonPath.startsWith('/') ? jsonPath : `/${jsonPath}`;
     
-    // 如果直接路径失败，尝试添加public前缀（作为后备）
-    if (!response.ok) {
-      console.warn(`Failed to load ${jsonPath}, trying with /public prefix`);
-      response = await fetch(`/public/${jsonPath}`);
-    }
+    const response = await fetch(url);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
     const data = await response.json();
-    console.log(`Timeline data loaded from ${jsonPath}`);
+    console.log(`Timeline data loaded from ${url}`);
     return Array.isArray(data) ? data : null;
   } catch (error) {
     console.error(`Error fetching timeline data from ${jsonPath}:`, error);
