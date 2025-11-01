@@ -1,4 +1,4 @@
-package com.revelationreader.app;
+package com.revelationreader.app.infinite_read;
 
 import com.getcapacitor.BridgeActivity;
 

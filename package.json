@@ -1,6 +1,6 @@
 {
-  "name": "buddha-socrates-confucius-jesus",
-  "displayName": "佛陀、苏格拉底、孔子、耶稣",
+  "name": "infinite_read",
+  "displayName": "无限知识库",
   "version": "1.0.0",
   "description": "一款无限知识库应用",
   "private": true,

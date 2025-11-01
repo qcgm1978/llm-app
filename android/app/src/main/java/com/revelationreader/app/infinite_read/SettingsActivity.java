@@ -1,4 +1,4 @@
-package com.revelationreader.app;
+package com.revelationreader.app.infinite_read;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;

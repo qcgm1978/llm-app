@@ -53,6 +53,35 @@ function getAppConfig() {
   return { zh: '', en: '', packageName: 'com.revelation.app' };
 }
 
+// 更新Android Java文件中的包声明
+function updateJavaPackageDeclarations(appConfig) {
+  try {
+    const newPackageName = 'com.revelationreader.app.infinite_read';
+    const oldPackageName = 'com.revelationreader.app';
+    
+    // 需要更新的Java文件列表
+    const javaFiles = [
+      path.resolve(process.cwd(), 'android/app/src/main/java/com/revelationreader/app/_infinite_read__/MainActivity.java'),
+      path.resolve(process.cwd(), 'android/app/src/main/java/com/revelationreader/app/_infinite_read__/SettingsActivity.java')
+    ];
+    
+    javaFiles.forEach(filePath => {
+      if (fs.existsSync(filePath)) {
+        let content = fs.readFileSync(filePath, 'utf-8');
+        
+        // 更新包声明
+        if (content.includes(`package ${oldPackageName};`)) {
+          content = content.replace(`package ${oldPackageName};`, `package ${newPackageName};`);
+          fs.writeFileSync(filePath, content, 'utf-8');
+          console.log(`Successfully updated package declaration in ${filePath}`);
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Failed to update Java package declarations:', error);
+  }
+}
+
 // 更新Android strings.xml文件
 function updateAndroidStringsXml(appConfig) {
   try {
@@ -106,6 +135,9 @@ function replaceEnvVars(filePath, appConfig) {
 function main() {
   const appConfig = getAppConfig();
   const distDir = path.resolve(process.cwd(), 'dist');
+  
+  // 更新Android Java文件中的包声明
+  updateJavaPackageDeclarations(appConfig);
   
   // 更新Android strings.xml文件
   updateAndroidStringsXml(appConfig);

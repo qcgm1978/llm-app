@@ -1,23 +1,11 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.revelationreader.app',
+  appId: 'com.revelationreader.app.infinite_read',
   appName: '',
   webDir: 'dist',
   android: {
-    webView: {
-      allowFileAccess: true,
-      javaScriptEnabled: true,
-      domStorageEnabled: true,
-      webContentsDebuggingEnabled: true,
-      hardwareAcceleration: true,
-      useHybridComposition: true,
-      setOnTouchListener: true,
-      // 添加Web Speech API支持相关配置
-      defaultWebSettings: {
-        mediaPlaybackRequiresUserGesture: false
-      }
-    },
+    webContentsDebuggingEnabled: true,
     backButtonBehavior: 'back',
     iconPath: {
       ldpi: 'assets/android/icon_36x36.png',

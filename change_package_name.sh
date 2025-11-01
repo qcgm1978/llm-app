@@ -2,12 +2,30 @@
 
 # 定义变量
 OLD_PACKAGE="com.revelation.app"
-NEW_PACKAGE="com.revelationreader.app"
 APP_DIR="/Users/dickphilipp/Documents/revelation/android/app"
 MANIFEST_FILE="$APP_DIR/src/main/AndroidManifest.xml"
 BUILD_GRADLE="$APP_DIR/build.gradle"
 JAVA_SRC_DIR="$APP_DIR/src/main/java"
 CAPACITOR_CONFIG="/Users/dickphilipp/Documents/revelation/capacitor.config.ts"
+PACKAGE_JSON="/Users/dickphilipp/Documents/revelation/package.json"
+
+# 从package.json中读取name字段
+if [ -f "$PACKAGE_JSON" ]; then
+  # 使用sed提取name字段的值（去掉引号）
+  APP_NAME=$(sed -n 's/.*"name":["\s]*\([^"]*\)["\s]*,*/\1/p' "$PACKAGE_JSON")
+  echo "从package.json中读取到应用名称: $APP_NAME"
+  
+  # 将应用名称转换为小写并替换非字母数字字符为下划线
+  APP_NAME_SUFFIX=$(echo "$APP_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/_/g')
+  
+  # 根据应用名称生成新包名
+  NEW_PACKAGE="com.revelationreader.app.$APP_NAME_SUFFIX"
+  echo "根据应用名称生成新包名: $NEW_PACKAGE"
+else
+  # 如果无法读取package.json，使用默认包名
+  NEW_PACKAGE="com.revelationreader.app"
+  echo "未找到package.json，使用默认包名: $NEW_PACKAGE"
+fi
 
 # 创建备份
 echo "创建配置文件备份..."

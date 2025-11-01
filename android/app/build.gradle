@@ -8,10 +8,10 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.revelationreader.app"
+    namespace "com.revelationreader.app.infinite_read"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.revelationreader.app"
+        applicationId "com.revelationreader.app.infinite_read"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
