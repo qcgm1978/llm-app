@@ -4,8 +4,8 @@ import _utils.communicate as c
 import _utils.util as u
 from crawler.music.spotify.main import get_revelation_json
 import requests
-import json
-import os
+
+
 def convert_notes_to_json():
     c.set_http_proxy_ssl()
     # 1. Define the prompt and extraction rules
@@ -15,7 +15,6 @@ def convert_notes_to_json():
         提取时使用确切文本。不要意译或重叠实体。
         不要添加没有的属性。"""
     )
-
 
     # The input text to be processed
     input_text = u.read_any_file("public/notes.txt", is_str=True)
@@ -42,17 +41,17 @@ def convert_notes_to_json():
                 lx.data.Extraction(
                     extraction_class="类别",
                     extraction_text="心理",
-                    attributes={"term": "回归", "pages": [62,74]}
+                    attributes={"term": "回归", "pages": [62, 74]},
                 ),
                 lx.data.Extraction(
                     extraction_class="类别",
                     extraction_text="心理",
-                    attributes={"term": "投射", "pages": [59]}
+                    attributes={"term": "投射", "pages": [59]},
                 ),
                 lx.data.Extraction(
                     extraction_class="类别",
                     extraction_text="心理",
-                    attributes={"term": "童年", "pages": [59]}
+                    attributes={"term": "童年", "pages": [59]},
                 ),
             ],
         )
@@ -63,9 +62,9 @@ def convert_notes_to_json():
         prompt_description=prompt,
         examples=examples,
         model_id="gemini-2.5-flash",
-        extraction_passes=3,    # Improves recall through multiple passes
-        max_workers=20,         # Parallel processing for speed
-        max_char_buffer=1000,    # Smaller contexts for better accuracy
+        extraction_passes=3,  # Improves recall through multiple passes
+        max_workers=20,  # Parallel processing for speed
+        max_char_buffer=1000,  # Smaller contexts for better accuracy
         api_key="AIzaSyC1Obb5enW1GVph2Kzhx0-VCUcsFam0aUI",
     )
     # 2. 提取核心数据（extractions列表）
@@ -79,7 +78,10 @@ def convert_notes_to_json():
             json_data[class_name] = []
         json_item = extraction.attributes
         json_data[class_name].append(json_item)
-    u.save_json(json_data, "public/extraction_results.json", )
+    u.save_json(
+        json_data,
+        "public/extraction_results.json",
+    )
     # save_data(result, "extraction_results.json", "public")
 
 
@@ -97,22 +99,28 @@ def save_data(data, output_name, output_dir):
         else:
             f.write(html_content)
 
+
 def fetch_fanqie_novel_data():
     """
     获取config.ts中指定的番茄小说API数据并保存为JSON文件
     添加了对非UTF-8字符和JSON解析错误的健壮处理
     """
     # https://fanqienovel.com/reader/7385115266218200126?enter_from=reader
-    url = 'https://fanqienovel.com/api/reader/directory/detail?bookId=7385115176627866648&a_bogus=DXlmfO2/Msm1XfvAPXkz99JmOK60YWRqgZEzHs3jXzwp'
+    url = "https://fanqienovel.com/api/reader/directory/detail?bookId=7385115176627866648&a_bogus=DXlmfO2/Msm1XfvAPXkz99JmOK60YWRqgZEzHs3jXzwp"
     print(f"正在获取数据: {url}")
-    data=c.request_json(url,is_pc=False)
-    chapterData = data['data']['chapterListWithVolume'][0]
-    u.save_json(chapterData, "public/chapterPage.json", )
+    data = c.request_json(url, is_pc=False)
+    chapterData = data["data"]["chapterListWithVolume"][0]
+    u.save_json(
+        chapterData,
+        "public/chapterPage.json",
+    )
     return chapterData
+
 
 if __name__ == "__main__":
     # novel_data = fetch_fanqie_novel_data()
-    get_revelation_json()
+    name = "extraction_results"
+    get_revelation_json(name)
     # convert_notes_to_json()
     # 获取番茄小说数据
     breakpoint()
