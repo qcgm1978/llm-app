@@ -27,15 +27,28 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       assetsDir: 'assets',
-      cacheDir: false 
+      cacheDir: false,
+      // 明确指定入口文件，避免自动扫描licence目录
+      rollupOptions: {
+        input: {
+          main: './index.html'
+        }
+      }
     },
     optimizeDeps: {
-      force: true // 强制重新优化依赖
+      force: true, // 强制重新优化依赖
+      exclude: ['licence'] // 排除优化licence目录
     },
     server: {
       fs: {
-        // 确保 Vite 可以访问 node_modules 中的文件
-        allow: ['..']
+          // 确保 Vite 可以访问 node_modules 中的文件
+          allow: ['..'],
+          // 忽略licence目录
+          deny: ['**/licence/**']
+        },
+      // 完全忽略licence目录的文件
+      watch: {
+        ignored: ['**/licence/**']
       }
     },
     define: {

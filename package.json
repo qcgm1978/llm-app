@@ -8,8 +8,8 @@
   "homepage": "https://qcgm1978.github.io/revelation/",
   "scripts": {
     "dev": "vite",
-    "sync": "cnpm sync llm-service-provider",
-    "update": "sudo  chmod -R 777 ./ && cnpm update llm-service-provider",
+    "sync": "cnpm sync llm-service-provider gem-timeline-data",
+    "update": "sudo  chmod -R 777 ./ && cnpm update llm-service-provider gem-timeline-data",
     "generate-images": "node scripts/generate_images.js",
     "build": "npm run generate-images && vite build && node scripts/replace_env_vars.js",
     "deploy": "vite build && npx gh-pages -d dist -r https://github.com/qcgm1978/revelation.git -f",
