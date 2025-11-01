@@ -94,16 +94,16 @@ const TimelineVisualization: React.FC<{ language: 'zh' | 'en' }> = ({ language }
   // 根据类型加载时间线数据
   const loadTimelineData = async (type: string) => {
     const sourceConfig = timelineConfig.sources[type];
-    if (!sourceConfig) {
-      console.error(`Timeline source configuration not found for type: ${type}`);
-      return;
-    }
+    // if (!sourceConfig) {
+    //   console.error(`Timeline source configuration not found for type: ${type}`);
+    //   return;
+    // }
     
     try {
       let data = null;
       
       // 首先尝试使用包数据（如果配置了并且模块已加载）
-      if (sourceConfig.usePackageData) {
+      if (timelineConfig.usePackageData) {
         if (type === 'gem' && gemTimelineData) {
           data = gemTimelineData;
         } else if (type === 'novel' && novelTimelineData) {
@@ -119,7 +119,7 @@ const TimelineVisualization: React.FC<{ language: 'zh' | 'en' }> = ({ language }
       // 如果成功加载了数据，更新状态
       if (data && Array.isArray(data) && data.length > 0) {
         setTimelineData(data);
-        setAudioUrl(sourceConfig.audioUrl);
+        sourceConfig && setAudioUrl(sourceConfig.audioUrl);
       } else {
         console.warn(`Failed to load timeline data for type: ${type}`);
         // 尝试使用默认后备数据

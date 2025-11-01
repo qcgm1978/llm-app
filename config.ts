@@ -3,62 +3,93 @@
 // 应用程序配置数组 - 支持多主题选择
 export const appConfigs = [
   {
-    id: 'buddha',
+    id: "revelation",
     names: {
-      zh: '佛陀、苏格拉底、孔子、耶稣',
-      en: 'buddha-socrates-confucius-jesus',
+      zh: "启示路",
+      en: "revelation",
     },
     music: {
-      audio_name: 'Amazing Grace',
-      artists: [{ name: '邓紫棋' }],
+      audio_name: "Amazing Grace",
+      artists: [{ name: "邓紫棋" }],
     },
-    sourceImage: '/cover.jpeg'
+    data: "extraction_results_data.json",
+    defaultType: "novel",
+    usePackageData: true,
+    timeline: {
+      novel: {
+        name: {
+          zh: "小说时间线",
+          en: "Novel Timeline",
+        },
+        audioUrl:
+          "https://p.scdn.co/mp3-preview/775fb3a76182997499309b0868a003528391da8e",
+      },
+      gem: {
+        name: {
+          zh: "邓紫棋时间线",
+          en: "G.E.M. Timeline",
+        },
+        audioUrl: "All About You-G.E.M.邓紫棋.mp3",
+      },
+    },
   },
   {
-    id: 'man-from-earth',
+    id: "buddha",
     names: {
-      zh: '这个男人来自地球',
-      en: 'the-man-from-earth',
+      zh: "佛陀、苏格拉底、孔子、耶稣",
+      en: "buddha-socrates-confucius-jesus",
     },
     music: {
-      audio_name: 'Goldberg Variations',
-      artists: [{ name: 'Johann Sebastian Bach' }],
+      audio_name: "Amazing Grace",
+      artists: [{ name: "邓紫棋" }],
     },
-    sourceImage: '/cover.jpeg',
-    data: 'THE.MAN.FROM.EARTH_data.json',
-    timeline: 'THE.MAN.FROM.EARTH_timeline.json',
-  }
+  },
+  {
+    id: "man-from-earth",
+    names: {
+      zh: "这个男人来自地球",
+      en: "the-man-from-earth",
+    },
+    music: {
+      audio_name: "Goldberg Variations",
+      artists: [{ name: "Johann Sebastian Bach" }],
+    },
+    data: "THE.MAN.FROM.EARTH_data.json",
+    timeline: "THE.MAN.FROM.EARTH_timeline.json",
+  },
 ];
+const sourceImage = "/cover.jpeg";
 
 // 默认配置索引
 export const DEFAULT_CONFIG_INDEX = 0;
 
 // 导出当前配置（可通过应用内选择切换）
 export const getCurrentConfig = () => {
-  const savedIndex = localStorage.getItem('selectedConfigIndex');
+  const savedIndex = localStorage.getItem("selectedConfigIndex");
   const index = savedIndex ? parseInt(savedIndex) : DEFAULT_CONFIG_INDEX;
   return appConfigs[index] || appConfigs[DEFAULT_CONFIG_INDEX];
 };
 
+const currentConfig = getCurrentConfig();
 // 获取当前应用名称
-export const appNames = getCurrentConfig().names;
+export const appNames = currentConfig.names;
 
 // 获取当前音乐配置
-export const music_config = getCurrentConfig().music;
+export const music_config = currentConfig.music;
 
 // 获取当前源图片路径
-export const SOURCE_IMAGE_PATH = getCurrentConfig().sourceImage;
+export const SOURCE_IMAGE_PATH = sourceImage;
 // 图标配置 - 基于单一源图片自动引用
 export const appIcons = {
   // Android 图标配置
   android: {
-    default: SOURCE_IMAGE_PATH
+    default: SOURCE_IMAGE_PATH,
   },
   // Web 应用图标
   web: {
     favicon: SOURCE_IMAGE_PATH,
-    appleTouchIcon: SOURCE_IMAGE_PATH
-  }
+    appleTouchIcon: SOURCE_IMAGE_PATH,
+  },
 };
 
 // 应用图片配置 - 基于单一源图片自动引用
@@ -70,7 +101,7 @@ export const appImages = {
     // 方形logo
     square: SOURCE_IMAGE_PATH,
     // 小尺寸logo
-    small: SOURCE_IMAGE_PATH
+    small: SOURCE_IMAGE_PATH,
   },
   // 二维码图片
   qrcode: "/assets/qrcode.jpeg",
@@ -79,15 +110,15 @@ export const appImages = {
     // 主背景
     main: null,
     // 次要背景
-    secondary: null
+    secondary: null,
   },
   // 内容相关图片
   content: {
     // 默认封面图
     defaultCover: SOURCE_IMAGE_PATH,
     // 默认缩略图
-    defaultThumbnail: SOURCE_IMAGE_PATH
-  }
+    defaultThumbnail: SOURCE_IMAGE_PATH,
+  },
 };
 
 // 图片自动生成配置 - 使用单一源图片路径
@@ -97,7 +128,7 @@ export const imageGenerationConfig = {
     // 主源图片路径 - 使用统一配置
     path: SOURCE_IMAGE_PATH,
     // 建议的源图片最小尺寸
-    minSize: 512
+    minSize: 512,
   },
   // 生成配置
   generation: {
@@ -107,19 +138,6 @@ export const imageGenerationConfig = {
     format: "png",
     // 输出目录 - 现在直接输出到Android mipmap目录，此配置在脚本中已被覆盖
     outputDir: "/android/app/src/main/res",
-    // 说明：脚本将根据不同尺寸自动输出到对应的mipmap目录（ldpi/mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi）
-    // 需要生成的尺寸列表 (像素)
-    sizes: [
-      { width: 36, height: 36, suffix: "36x36" },
-      { width: 48, height: 48, suffix: "48x48" },
-      { width: 72, height: 72, suffix: "72x72" },
-      { width: 96, height: 96, suffix: "96x96" },
-      { width: 144, height: 144, suffix: "144x144" },
-      { width: 180, height: 180, suffix: "180x180" },
-      { width: 192, height: 192, suffix: "192x192" },
-      { width: 216, height: 216, suffix: "216x216" },
-      { width: 512, height: 512, suffix: "512x512" }
-    ],
     // 图片质量 (0-1，仅对有损格式有效)
     quality: 1.0,
     // 是否保持纵横比
@@ -127,11 +145,9 @@ export const imageGenerationConfig = {
     // 背景色 (当调整大小时需要填充时使用)
     backgroundColor: "#FFFFFF",
     // 生成脚本路径
-    scriptPath: "./scripts/generate_images.js"
-  }
+    scriptPath: "./scripts/generate_images.js",
+  },
 };
-
-
 
 // 版本信息配置
 export const versionInfo = {
@@ -201,35 +217,16 @@ if (typeof window !== "undefined" && window.fetch) {
 
 // 时间线数据配置
 export const timelineConfig = {
-  // 默认时间线类型
-  // defaultType: 'novel',
-  defaultType: "json",
+  defaultType: currentConfig.defaultType || "json",
+  usePackageData: currentConfig.usePackageData,
   // 时间线数据源配置
   sources: {
     json: {
       name: appNames,
-      jsonPath: getCurrentConfig().timeline || "timeline.json",
-      audioUrl: 'bg.mp3',
-      ...music_config
+      jsonPath: currentConfig.timeline || "timeline.json",
+      audioUrl: "bg.mp3",
+      ...music_config,
     },
-    // novel: {
-    //   name: {
-    //     zh: '小说时间线',
-    //     en: 'Novel Timeline'
-    //   },
-    //   audioUrl: 'https://p.scdn.co/mp3-preview/775fb3a76182997499309b0868a003528391da8e',
-    //   // 可以配置为从本地JSON文件加载
-    //   jsonPath: 'Yang.json'
-    // },
-    // gem: {
-    //   name: {
-    //     zh: '邓紫棋时间线',
-    //     en: 'G.E.M. Timeline'
-    //   },
-    //   audioUrl: 'All About You-G.E.M.邓紫棋.mp3',
-    //   // 使用gem-timeline-data包中的数据
-    //   usePackageData: true
-    // }
   },
   // 动画延迟时间（毫秒）
   animationDelay: 3000,
@@ -239,7 +236,7 @@ export const timelineConfig = {
 
 export const config = {
   // 数据文件路径
-  dataFilePath: getCurrentConfig().data || "data.json",
+  dataFilePath: currentConfig.data || "data.json",
   // 章节页面配置 - 指向JSON文件
   chapterPage,
   // 时间线配置
@@ -259,16 +256,24 @@ export const config = {
  * @param defaultUrl 默认URL，当指定图片不存在时使用
  * @returns 完整的图片URL
  */
-export function getImageUrl(imageType: string, subType?: string, defaultUrl: string = SOURCE_IMAGE_PATH): string {
+export function getImageUrl(
+  imageType: string,
+  subType?: string,
+  defaultUrl: string = SOURCE_IMAGE_PATH
+): string {
   try {
     // 检查类型是否存在
     if (!appImages[imageType]) {
       console.warn(`图片类型 ${imageType} 不存在`);
       return defaultUrl;
     }
-    
+
     // 如果有子类型且图片类型是对象
-    if (subType && typeof appImages[imageType] === 'object' && appImages[imageType] !== null) {
+    if (
+      subType &&
+      typeof appImages[imageType] === "object" &&
+      appImages[imageType] !== null
+    ) {
       const subImage = appImages[imageType][subType];
       if (subImage) {
         return subImage;
@@ -277,12 +282,12 @@ export function getImageUrl(imageType: string, subType?: string, defaultUrl: str
         return defaultUrl;
       }
     }
-    
+
     // 直接返回图片URL
     const imageUrl = appImages[imageType];
     return imageUrl || defaultUrl;
   } catch (error) {
-    console.error('获取图片URL时发生错误:', error);
+    console.error("获取图片URL时发生错误:", error);
     return defaultUrl;
   }
 }
